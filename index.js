@@ -1,7 +1,6 @@
 const Gt06 = require("gt06");
 const net = require("net");
-
-const serverPort = 2000;
+const serverPort = 8090;
 var server = net.createServer((client) => {
   var gt06 = new Gt06();
   console.log("client connected");
@@ -9,8 +8,8 @@ var server = net.createServer((client) => {
   client.on("data", (data) => {
     try {
       gt06.parse(data);
-    } catch (e) {
-      console.log("err", e);
+    } catch (error) {
+      console.error({ ...error, msg: error.msg?.toString("utf8") });
       return;
     }
 
